@@ -52,8 +52,6 @@ $ ssh-keygen
 This is stored in
 _$HOME/.ssh/id_rsa.pub_ --> public key
 
-Copy the public key to _ssh/authorized_keys_ on the webserver
-
-On _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
+Copy the public key to _ssh/authorized_keys_ on the _webserver_. On _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
 
 _$HOME/.ssh/id_rsa_ --> is private key for *ansible* machine
