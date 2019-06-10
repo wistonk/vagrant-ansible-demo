@@ -27,21 +27,31 @@
 ## Prerequisite
 Provision 2 machines; _webserver & ansible_
 
-## Getting Started
-### 1. start the machines
+### Getting Started
+#### 1. Start the machines
+<pre>
+<code>
 $ vagrant up ansible
 $ vagrant up webserver
-
-### 2. login to ansible
+</code>
+</pre>
+### 2. Login to ansible
+<pre>
+<code>
 $ vagrant ssh ansible
 $ sudo apt-get install ansible
-
+</code>
+</pre>
 ### 3. Generating a new keypair on the ansible machines
 $ *ssh-keygen* with no passphrase
 
-This is stored on
+This is stored in
 _$HOME/.ssh/id_rsa.pub_ --> public key
-    - To copy to *.ssh/authorized_keys* on host i.e webserver machine
-    - on *host* machine i.e _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
+
+    - Copy to *.ssh/authorized_keys* on host i.e webserver machine
+
+    - On *host* machine; _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
+
 _$HOME/.ssh/id_rsa_ --> private key
+
     For *ansible* machine
