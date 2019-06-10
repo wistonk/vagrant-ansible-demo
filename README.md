@@ -1,13 +1,10 @@
 # Getting Started
 
-## Reference
-https://github.com/wardviaene/devops-box
+## VagrantFile
 
 <pre>
   <code>
-
   Vagrant.configure("2") do |config|
-
     config.vm.define "webserver" do |webserver|
       webserver.vm.box = "ubuntu/trusty64"
       webserver.vm.network "private_network", ip: "192.168.0.2"
@@ -23,24 +20,23 @@ https://github.com/wardviaene/devops-box
       # 		  v.cpus = 2
       # 		end
     end
-
   end
-
   </code>
 </pre>
 
-## Demo
-Provision two machines; _webserver & ansible_
+## Prerequisite
+Provision 2 machines; _webserver & ansible_
 
-## Start
+## Getting Started
+### 1. start the machines
 $ vagrant up ansible
 $ vagrant up webserver
 
-## login to ansible
+### 2. login to ansible
 $ vagrant ssh ansible
 $ sudo apt-get install ansible
 
-## Generating a new keypair on the ansible machines
+### 3. Generating a new keypair on the ansible machines
 $ *ssh-keygen* with no passphrase
 
 This is stored on
