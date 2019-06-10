@@ -35,23 +35,25 @@ $ vagrant up ansible
 $ vagrant up webserver
 </code>
 </pre>
-### 2. Login to ansible
+#### 2. Login to ansible
 <pre>
 <code>
 $ vagrant ssh ansible
 $ sudo apt-get install ansible
 </code>
 </pre>
-### 3. Generating a new keypair on the ansible machines
-$ *ssh-keygen* with no passphrase
+#### 3. Generating a new keypair on the ansible machines
+<pre>
+<code>
+$ ssh-keygen
+</code>
+</pre>
 
 This is stored in
 _$HOME/.ssh/id_rsa.pub_ --> public key
 
-    - Copy to *.ssh/authorized_keys* on host i.e webserver machine
+Copy the public key to _ssh/authorized_keys_ on the webserver
 
-    - On *host* machine; _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
+On _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
 
-_$HOME/.ssh/id_rsa_ --> private key
-
-    For *ansible* machine
+_$HOME/.ssh/id_rsa_ --> is private key for *ansible* machine
