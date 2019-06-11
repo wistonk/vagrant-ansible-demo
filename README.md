@@ -308,7 +308,7 @@ Connection to 127.0.0.1 closed.
 
 ## NOTE
 
-Its also possible to run ansible as part of vagrant Provisioning. i.e
+It's also possible to run ansible as part of vagrant Provisioning. i.e
 
 <pre>
   <code>
