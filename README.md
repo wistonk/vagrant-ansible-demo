@@ -1,4 +1,4 @@
-# Getting Started
+# Vagrant Provisioning with Ansible
 
 ## VagrantFile
 
@@ -7,13 +7,13 @@
   Vagrant.configure("2") do |config|
     config.vm.define "webserver" do |webserver|
       webserver.vm.box = "ubuntu/trusty64"
-      webserver.vm.network "private_network", ip: "192.168.0.2"
+      webserver.vm.network "private_network", ip: "192.168.5.100"
       #webserver.vm.provision "shell", path: "scripts/install.sh"
       webserver.vm.hostname = "webserver"
     end
     config.vm.define "ansible" do |ansible|
       ansible.vm.box = "ubuntu/trusty64"
-      ansible.vm.network "private_network", ip: "192.168.0.254"
+      ansible.vm.network "private_network", ip: "192.168.2.200"
       ansible.vm.hostname = "ansible"
       # devbox.vm.provider "virtualbox" do |v|
       # 		  v.memory = 4096
@@ -304,6 +304,23 @@ vagrant@ansible:~$ exit
 logout
 Connection to 127.0.0.1 closed.
 </code>
+</pre>
+
+## NOTE
+
+Its also possible to run ansible as part of vagrant Provisioning. i.e
+
+<pre>
+  <code>
+  Vagrant.configure("2") do |config|
+    config.vm.define "webserver" do |webserver|
+      webserver.vm.box = "ubuntu/trusty64"
+      config.vm.network "private_network", ip: "192.168.5.100"
+      config.vm.hostname = "webserver"
+      ansible.playbook = "nginx.yml"
+    end
+  end
+  </code>
 </pre>
 
 ## Congratulations, We did it !!
