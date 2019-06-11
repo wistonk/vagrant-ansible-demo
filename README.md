@@ -171,7 +171,7 @@ $ vagrant ssh ansible
 </code>
 </pre>
 
-  [a] Create a _nginx.yml_ file and add below content.
+###### Create a _nginx.yml_ file and add below content.
  <pre>
  <code>
  ---
@@ -196,7 +196,7 @@ $ vagrant ssh ansible
  </code>
  </pre>
 
- [b] Create a _templates/nginx.conf.j2_ file and add below content.
+###### Create a _templates/nginx.conf.j2_ file and add below content.
 
 <pre>
 <code>
@@ -238,7 +238,7 @@ hosts  nginx.yml  templates
 </code>
 </pre>
 
-[c] Execute the playbook
+###### Execute the playbook
 <pre>
 <code>
 vagrant@ansible:~$ ansible-playbook -i hosts -u root nginx.yml
@@ -265,7 +265,7 @@ PLAY RECAP ********************************************************************
 </code>
 </pre>
 
-[d] Test nginx to see if its running
+###### Test nginx to see if its running
 <pre>
 <code>
 vagrant@ansible:~$ curl http://192.168.5.100
