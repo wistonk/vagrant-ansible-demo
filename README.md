@@ -27,7 +27,7 @@
 ## Prerequisite
 Provision 2 machines; _webserver & ansible_
 
-### Getting Started
+### Creating machines
 #### 1. Start the machines
 <pre>
 <code>
@@ -55,3 +55,39 @@ _$HOME/.ssh/id_rsa.pub_ --> public key
 Copy the public key to _ssh/authorized_keys_ on the _webserver_. On _webserver_, echo 'full content of the public key; id_rsa.pub' > /root/.ssh/authorized_keys
 
 _$HOME/.ssh/id_rsa_ --> is private key for *ansible* machine
+
+### Ansible Configuration
+
+#### 1. Creating inventory
+<pre>
+<code>
+$ echo '[webservers]'> hosts
+$ echo '192.168.5.100'>> hosts
+</code>
+</pre>
+
+#### 2. Setting ssh-agent
+_ssh-agent_ sends our _id_rsa_ key (private key) automatically. so we don't have to put it as an argument.
+
+<pre>
+<code>
+$ ssh-agent bash
+$ ssh-add .ssh/id_rsa
+</code>
+</pre>
+
+You need to execute this for every new session or add it to *.bash_profile*(So that it can be executed whenever you login).
+Ansible ping all tests whether all our hosts in our inventory file are reachable.
+
+<pre>
+<code>
+$ ansible -i hosts -u root -m ping all
+
+192.168.5.100 | success >> {
+  "changed": false
+  "ping":"pong"
+}
+</code>
+</pre>
+
+## Congratulations, We did it !!
