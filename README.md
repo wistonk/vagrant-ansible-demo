@@ -28,21 +28,21 @@
 Provision 2 machines; _webserver & ansible_
 
 ### Creating machines
-#### 1. Start the machines
+##### 1. Start the machines
 <pre>
 <code>
 $ vagrant up ansible
 $ vagrant up webserver
 </code>
 </pre>
-#### 2. Login to ansible
+##### 2. Login to ansible
 <pre>
 <code>
 $ vagrant ssh ansible
 vagrant@ansible:~$ sudo apt-get install ansible
 </code>
 </pre>
-#### 3. Generating a new keypair on the ansible machines
+##### 3. Generating a new keypair on the ansible machines
 <pre>
 <code>
 vagrant@ansible:~$ ssh-keygen
@@ -112,7 +112,7 @@ $ vagrant ssh ansible
 </code>
 </pre>
 
-#### 1. Creating inventory
+##### 1. Creating inventory
 <pre>
 <code>
 vagrant@ansible:~$ echo '[webservers]'> hosts
@@ -125,7 +125,7 @@ vagrant@ansible:~$ cat hosts
 </code>
 </pre>
 
-#### 2. Configuring ssh-agent
+##### 2. Configuring ssh-agent
 _ssh-agent_ sends our _id_rsa_ key (private key) automatically. so we don't have to put it as an argument.
 
 <pre>
