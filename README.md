@@ -163,4 +163,147 @@ logout
 Connection to 127.0.0.1 closed.
 </code>
 </pre>
+
+### Ansible Playbooks
+<pre>
+<code>
+$ vagrant ssh ansible
+</code>
+</pre>
+####### [a] Create a _nginx.yml_ file and add below content.
+
+ <pre>
+ <code>
+ ---
+- hosts: webservers
+  vars:
+    user: www-data
+    worker_processes: 2
+    pid: /run/nginx.pid
+    worker_connections: 768
+  tasks:
+  - name: install nginx
+    apt: name=nginx state=latest update_cache=yes
+  - name: ensure nginx is running (and enable it at boot)
+    service: name=nginx state=started enabled=yes
+  - name: write the nginx config file
+    template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+    notify:
+    - restart nginx
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+ </code>
+ </pre>
+
+####### [b] Create a _templates/nginx.conf.j2_ file and add below content.
+
+<pre>
+<code>
+user {{ user }};
+worker_processes {{ worker_processes }};
+pid {{ pid }};
+
+events {
+	worker_connections {{ worker_connections }} ;
+}
+
+http {
+
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	access_log /var/log/nginx/access.log;
+	error_log /var/log/nginx/error.log;
+
+	gzip on;
+	gzip_disable "msie6";
+
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+}
+</code>
+</pre>
+
+<pre>
+<code>
+vagrant@ansible:~$ ls
+hosts  nginx.yml  templates
+</code>
+</pre>
+
+####### [c] Execute the playbook
+<pre>
+<code>
+vagrant@ansible:~$ ansible-playbook -i hosts -u root nginx.yml
+
+PLAY [webservers] *************************************************************
+
+GATHERING FACTS ***************************************************************
+ok: [192.168.5.100]
+
+TASK: [install nginx] *********************************************************
+changed: [192.168.5.100]
+
+TASK: [ensure nginx is running (and enable it at boot)] ***********************
+ok: [192.168.5.100]
+
+TASK: [write the nginx config file] *******************************************
+changed: [192.168.5.100]
+
+NOTIFIED: [restart nginx] *****************************************************
+changed: [192.168.5.100]
+
+PLAY RECAP ********************************************************************
+192.168.5.100              : ok=5    changed=3    unreachable=0    failed=0
+</code>
+</pre>
+
+####### [d] Test nginx to see if its running
+<pre>
+<code>
+vagrant@ansible:~$ curl http://192.168.5.100
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+  body {
+      width: 35em;
+      margin: 0 auto;
+      font-family: Tahoma, Verdana, Arial, sans-serif;
+  }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
+</code>
+</pre>
+
+<pre>
+<code>
+vagrant@ansible:~$ exit
+logout
+Connection to 127.0.0.1 closed.
+</code>
+</pre>
+
 ## Congratulations, We did it !!
